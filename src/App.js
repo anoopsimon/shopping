@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 import axios from 'axios';
-
+import {Navbar,NavDropdown,Nav,Form,FormControl,Button} from 'react-bootstrap';
 import Login from './Login';
 import Dashboard from './Dashboard';
 import Home from './Home';
@@ -36,11 +36,23 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <div>
-          <div className="header">
-            <NavLink exact activeClassName="active" to="/">Home</NavLink>
-            <NavLink activeClassName="active" to="/login">Login</NavLink><small>(Access without token only)</small>
-            <NavLink activeClassName="active" to="/dashboard">Dashboard</NavLink><small>(Access with token only)</small>
-          </div>
+          <Navbar bg="light" expand="lg">
+  <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+  <Navbar.Collapse id="basic-navbar-nav">
+    <Nav className="mr-auto">
+      <Nav.Link href="/">Home</Nav.Link>
+      <Nav.Link href="/login">Login</Nav.Link>    
+      <Nav.Link href="/dashboard">Dashboard</Nav.Link>     
+    </Nav>
+    <Form inline>
+      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+      <Button variant="outline-success">Search</Button>
+    </Form>
+  </Navbar.Collapse>
+</Navbar>
+          
+        
           <div className="content">
             <Switch>
               <Route exact path="/" component={Home} />
@@ -50,6 +62,7 @@ function App() {
           </div>
         </div>
       </BrowserRouter>
+  
     </div>
   );
 }

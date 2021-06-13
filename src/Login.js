@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { setUserSession } from './Utils/Common';
-
+import {Container,Row,Col,Button,Form} from 'react-bootstrap';
 function Login(props) {
   const [loading, setLoading] = useState(false);
   const username = useFormInput('');
@@ -14,7 +14,7 @@ function Login(props) {
     setLoading(true);
     axios.post('http://localhost:4000/login', { email: username.value, password: password.value }).then(response => {
       setLoading(false);
-      setUserSession(response.data.accessToken, response.data.user);
+      setUserSession(response.data.accessToken, username.value);
       props.history.push('/dashboard');
     }).catch(error => {
       setLoading(false);
@@ -24,19 +24,32 @@ function Login(props) {
   }
 
   return (
-    <div>
+    <Container>
+  <Row></Row>
+  <Row></Row><Row></Row>
+  <Row>
+  <Col></Col>
+    <Col>
+    <div style={{marginLeft:'auto',marginRight:'auto'}}>
       Login<br /><br />
       <div>
-        Username<br />
-        <input type="text" {...username} autoComplete="new-password" />
+        <Form.Label>Email address</Form.Label>
+        <Form.Control {...username} type="email" placeholder="password.." />
       </div>
       <div style={{ marginTop: 10 }}>
-        Password<br />
-        <input type="password" {...password} autoComplete="new-password" />
+          <Form.Label>Password</Form.Label>
+        <Form.Control {...password} type="password" placeholder="password.." />
+
       </div>
       {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
-      <input type="button" value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading} /><br />
+      <Button value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading} > Login</Button><br />
     </div>
+    </Col>
+    <Col></Col>
+  </Row>
+</Container>
+
+    
   );
 }
 

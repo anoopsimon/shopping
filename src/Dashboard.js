@@ -19,13 +19,13 @@ function Dashboard(props) {
         {" "}
         Logout{" "}
       </Button>
-      <Container fluid style={{paddingLeft: '2px', paddingRight: '20px'}}>
+      <Container fluid>
         <Row md={4}>
           {products.map((x, key) => (
-            <Card style={{ width: "18rem" }}>
+            <Card style={{ width: "15rem",marginLeft: '5px'}}>
               <Card.Img
                 variant="top"
-                src="https://picsum.photos/200"
+                src="https://picsum.photos/100"
               />
               <Card.Body>
                 <Card.Title>Card Title</Card.Title>
@@ -33,7 +33,7 @@ function Dashboard(props) {
                   Some quick example text to build on the card title and make up
                   the bulk of the card's content.
                 </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
+                <Button variant="primary">Add to cart</Button>
               </Card.Body>
             </Card>
           ))}

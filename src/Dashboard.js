@@ -1,16 +1,32 @@
 import { Button, Card, Row, Container, Col } from "react-bootstrap";
-import React from "react";
+import React,{useEffect,useState } from "react";
 import { getUser, removeUserSession } from "./Utils/Common";
+import axios from 'axios';
+
 
 function Dashboard(props) {
   const user = getUser();
-  let products = [1, 1, 1, 1, 1];
+  const [products, setproducts] = useState([])  ;
+  
+  useEffect(()=> {
+  axios.get('http://localhost:4000/products').then(response => 
+  {   
+    console.log('??' + response.data[0].name)  
+    setproducts(response.data);
+  }).catch(error => {
+    if (error.response?.status === 200)
+    console.log('Failed to get products');
+    
+  })
+}, []);
 
   // handle click event of logout button
   const handleLogout = () => {
     removeUserSession();
     props.history.push("/login");
   };
+
+
 
   return (
     <div>
@@ -21,17 +37,16 @@ function Dashboard(props) {
       </Button>
       <Container fluid>
         <Row md={4}>
-          {products.map((x, key) => (
-            <Card style={{ width: "15rem",marginLeft: '5px'}}>
+          {products.map((product, key) => (
+            <Card key={key} style={{ width: "15rem",marginLeft: '50px',marginTop:'20px'}}>
               <Card.Img
                 variant="top"
-                src="https://picsum.photos/100"
+                src={product.image}
               />
               <Card.Body>
-                <Card.Title>Card Title</Card.Title>
+                <Card.Title>{product.name}</Card.Title>
                 <Card.Text>
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
+                  {product?.description}
                 </Card.Text>
                 <Button variant="primary">Add to cart</Button>
               </Card.Body>

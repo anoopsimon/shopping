@@ -17,29 +17,44 @@ import Home from "./Home";
 import PrivateRoute from "./Utils/PrivateRoute";
 import PublicRoute from "./Utils/PublicRoute";
 import { getToken, removeUserSession, setUserSession } from "./Utils/Common";
+import jwt_decode from "jwt-decode";
 
 function App() {
-  const [authLoading, setAuthLoading] = useState(true);
+  const [authLoading, setAuthLoading,isTokenValid] = useState(true);
 
   useEffect(() => {
     const token = getToken();
+    console.log('token is '  + token);
+    let isTokenValid=false;
     if (!token) {
       return;
     }
 
-    axios
-      .get(`http://localhost:4000/healthcheck`)
-      .then((response) => {
-        setUserSession(response.data.accessToken);
-        setAuthLoading(false);
-      })
-      .catch((error) => {
-        removeUserSession();
-        setAuthLoading(false);
-      });
-  }, []);
+    try {
+     //let token = localStorage.getItem(TOKEN);
+    let decodedToken = jwt_decode(token);    
+    console.log("Decoded Token", decodedToken);
+    let currentDate = new Date();
 
-  if (authLoading && getToken()) {
+    // JWT exp is in seconds
+    if (decodedToken.exp * 1000 < currentDate.getTime()) {
+      console.log("Token expired.");
+      isTokenValid=false;
+    } else {
+      console.log("Valid token");
+      isTokenValid = true;
+      setAuthLoading(false);
+    }
+    } catch (error) {
+      isTokenValid=false;
+      setAuthLoading(false);
+
+    }
+
+    
+  });
+
+  if (authLoading && isTokenValid) {
     return <div className="content">Checking Authentication...</div>;
   }
 
@@ -49,12 +64,22 @@ function App() {
         <div>
           <Navbar bg="light" expand="lg">
             <Navbar.Brand href="#home">Shopping</Navbar.Brand>
-            <NavLink className ="navLink" exact activeClassName="active" to="/">Home</NavLink>
-            <NavLink className ="navLink"activeClassName="active" to="/login">Login</NavLink>
-            <NavLink className ="navLink" activeClassName="active" to="/dashboard">Dashboard</NavLink>
+            <NavLink className="navLink" exact activeClassName="active" to="/">
+              Home
+            </NavLink>
+            <NavLink className="navLink" activeClassName="active" to="/login">
+              Login
+            </NavLink>
+            <NavLink
+              className="navLink"
+              activeClassName="active"
+              to="/dashboard"
+            >
+              Dashboard
+            </NavLink>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-                <Form inline>
+              <Form inline>
                 <FormControl
                   type="text"
                   placeholder="Search"
@@ -63,7 +88,6 @@ function App() {
                 <Button variant="outline-success">Search</Button>
               </Form>
             </Navbar.Collapse>
-            
           </Navbar>
 
           <div className="content">

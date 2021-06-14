@@ -6,7 +6,41 @@
       "id": 1
     }
   ],
-  "healthcheck":[
-      true
+  "products":[
+      {
+        "name":"Burger",
+        "price":"10.50",
+        "availability":"In Stock",
+        "image":"burger.png"
+
+      },
+      {
+        "name":"Coffee",
+        "price":"3.50",
+        "availability":"In Stock",
+        "image":"coffee.png"
+
+      },
+      {
+        "name":"Pizza",
+        "price":"16.50",
+        "availability":"In Stock",
+        "image":"pizza.png"
+
+      },
+      {
+        "name":"Sandwich",
+        "price":"10.50",
+        "availability":"In Stock",
+        "image":"Sandwich.png"
+
+      },
+      {
+        "name":"Coke",
+        "price":"5.50",
+        "availability":"In Stock",
+        "image":"drink.png"
+
+      }
   ]
 }

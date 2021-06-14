@@ -54,6 +54,8 @@ function App() {
     
   });
 
+
+
   if (authLoading && isTokenValid) {
     return <div className="content">Checking Authentication...</div>;
   }
@@ -62,7 +64,7 @@ function App() {
     <Container>
       <BrowserRouter>
         <div>
-          <Navbar bg="light" expand="lg">
+          <Navbar bg="primary" expand="lg" variant="dark">
             <Navbar.Brand href="#home">Shopping</Navbar.Brand>
             <NavLink className="navLink" exact activeClassName="active" to="/">
               Home
@@ -75,7 +77,7 @@ function App() {
               activeClassName="active"
               to="/dashboard"
             >
-              Dashboard
+              Products
             </NavLink>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -85,8 +87,9 @@ function App() {
                   placeholder="Search"
                   className="mr-sm-2"
                 />
-                <Button variant="outline-success">Search</Button>
+               
               </Form>
+              {!isTokenValid ? <Button  style={{marginLeft:'50%'}}>Logout</Button> : <p>s</p>}
             </Navbar.Collapse>
           </Navbar>
 

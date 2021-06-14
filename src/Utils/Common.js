@@ -16,6 +16,25 @@ export const removeUserSession = () => {
   sessionStorage.removeItem('user');
 }
 
+export const updateCart =(items)=>{
+  var currentCount = parseInt(sessionStorage.getItem("cartCount"));
+  if (!currentCount) {
+    currentCount=0;
+}
+sessionStorage.setItem('cartCount', currentCount+items);
+
+
+
+}
+
+export const getCart =()=> {
+
+  console.log('Cart Count: '+sessionStorage.getItem('cartCount'));
+  return sessionStorage.getItem('cartCount');
+
+}
+
+
 // set the token and user from the session storage
 export const setUserSession = (token, user) => {
   sessionStorage.setItem('accessToken', token);

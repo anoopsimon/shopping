@@ -8,38 +8,43 @@
   ],
   "products":[
       {
-        "name":"Burger",
+        "name":"Beef Burger",
         "price":"10.50",
         "availability":"In Stock",
-        "image":"burger.png"
+        "image":"burger.png",
+        "rating":"5"
 
       },
       {
-        "name":"Coffee",
+        "name":"Latte",
         "price":"3.50",
         "availability":"In Stock",
-        "image":"coffee.png"
+        "image":"coffee.png",
+        "rating":"3.9"
 
       },
       {
         "name":"Pizza",
         "price":"16.50",
         "availability":"In Stock",
-        "image":"pizza.png"
+        "image":"pizza.png",
+        "rating":"3"
 
       },
       {
         "name":"Sandwich",
         "price":"10.50",
         "availability":"In Stock",
-        "image":"Sandwich.png"
+        "image":"Sandwich.png",
+        "rating":"4"
 
       },
       {
         "name":"Coke",
         "price":"5.50",
         "availability":"In Stock",
-        "image":"drink.png"
+        "image":"drink.png",
+        "rating":"1"
 
       }
   ]

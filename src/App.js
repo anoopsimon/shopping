@@ -20,12 +20,12 @@ import { getToken, removeUserSession, setUserSession } from "./Utils/Common";
 import jwt_decode from "jwt-decode";
 
 function App() {
-  const [authLoading, setAuthLoading,isTokenValid] = useState(true);
+  const [authLoading, setAuthLoading] = useState(true);
+  const [isTokenValid, setisTokenValid] = useState(false);
 
   useEffect(() => {
     const token = getToken();
     console.log('token is '  + token);
-    let isTokenValid=false;
     if (!token) {
       return;
     }
@@ -39,14 +39,13 @@ function App() {
     // JWT exp is in seconds
     if (decodedToken.exp * 1000 < currentDate.getTime()) {
       console.log("Token expired.");
-      isTokenValid=false;
+      
     } else {
       console.log("Valid token");
-      isTokenValid = true;
+      setisTokenValid(true);
       setAuthLoading(false);
     }
     } catch (error) {
-      isTokenValid=false;
       setAuthLoading(false);
 
     }
@@ -89,7 +88,8 @@ function App() {
                 />
                
               </Form>
-              {!isTokenValid ? <Button  style={{marginLeft:'50%'}}>Logout</Button> : <p>s</p>}
+              {console.log('isTokenValid' + isTokenValid)}
+              {isTokenValid ? <Button  style={{marginLeft:'50%'}}>Logout</Button> : <p></p>}
             </Navbar.Collapse>
           </Navbar>
 
